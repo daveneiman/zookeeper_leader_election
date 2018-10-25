@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.harvard.huit.lts</groupId>
+	<artifactId>leader-election</artifactId>
+	<version>0.9.0-SNAPSHOT</version>
+	<name>Leader Election</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.sts.allprogtutorials.zk.leaderelection.main.LeaderElectionLauncher</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>artifactory.lts.harvard.edu-all</name>
+			<url>${lts-artifactory-url}/lts-libs-all</url>
+		</repository>
+		<repository>
+			<name>Maven repo</name>
+			<id>maven-central</id>
+			<url>http://central.maven.org/maven2/</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://central.maven.org/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<!-- repository URL and credentials set up in local .m2/settings.xml -->
+		<repository>
+			<id>harvard-lts-internal-release-repository</id>
+			<name>Harvard LTS internal Release Repository</name>
+			<url>${lts-artifactory-url}/lts-libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>harvard-lts-internal-snapshot-repository</id>
+			<name>Harvard LTS internal Snapshot Repository</name>
+			<url>${lts-artifactory-url}/lts-libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
